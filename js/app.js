@@ -1,3 +1,11 @@
+//TODO: Add enterKey function to fire .cmdresult show function on pressing enter key in search field
+//TODO: Remove submit button when enterKey function implemented
+//TODO: Add about and contact page in dropdown-menu titled Menu
+//TODO: Create logo
+//TODO: Decide on whether or not to keep more info button/icons
+//TODO: Decide on whther or not to use bootflat
+//TODO: #topsearch is not styled good for mobile, and does not work well as a dropdown element. Put it under navbar instead.
+
 var commandEntries = [
   {
     "title" : "grep",
@@ -6,7 +14,7 @@ var commandEntries = [
     "description" : "grep searches the named input FILEs for lines containing a match to the given PATTERN."
   },
   {
-    "title": "grep",
+    "title": "ls",
     "syntax" : "ls [OPTION]... [FILE]...",
     "example": "ls -lah",
     "description": "List information about the FILEs (the current directory by default)."
@@ -32,13 +40,29 @@ var commandEntries = [
 ];
 
 $(document).ready(function() {
-  $(".cmdresult").append({
-    
+  commandEntries.forEach( function(item) {
+    $(".toprow").append('<div class="col-md-3 cmdresult"><div class="thumbnail"><div class="caption"><h3 class="">' + item.title + '</h4><p><strong>' + item.syntax + '</strong></p><p><strong>Example:</strong> ' + item.example + '</p><p>' + item.description + '</p> <a href="#" class="btn btn-default btn-xs pull-right" role="button"><i class="glyphicon glyphicon-edit"></i></a>  <a href="#" class="btn btn-default btn-xs" role="button">More Info</a></div></div></div>');
   });
+  //$(".toprow").append('<div class="col-md-3 cmdresult"><div class="thumbnail"><div class="caption"><h3 class="">' + commandEntries[0].title + '</h4><p><strong>' + commandEntries[0].example + '</strong></p><p><strong>Example:</strong> ' + commandEntries[0].example + '</p><p>' + commandEntries[0].description + '</p> <a href="#" class="btn btn-default btn-xs pull-right" role="button"><i class="glyphicon glyphicon-edit"></i></a>  <a href="#" class="btn btn-default btn-xs" role="button">More Info</a></div></div></div>');
   $("#topbutton").click(function() {
+    event.preventDefault();
     var searchEntered = $("#topsearch").val();
     console.log("click test");
     $(".cmdresult").hide();
-    $("#topsearch h3:contains('" + searchEntered + "')").show();
+    $(".cmdresult:contains('" + searchEntered + "')").show();
+
+    //prevent form from submitting (and changing page)
+    //return false;
+  });
+  $(function() {
+    // apply your matchHeight on DOM ready (they will be automatically re-applied on load or resize)
+    // get test settings
+    var byRow = $('body').hasClass('test-rows');
+    // apply matchHeight to each item container's items
+    $('.toprow').each(function() {
+      $(this).children('.cmdresult').matchHeight({
+        byRow: byRow
+      });
+    });
   });
 });
