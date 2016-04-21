@@ -47,7 +47,6 @@ $(document).ready(function() {
   $("#topbutton").click(function() {
     event.preventDefault();
     var searchEntered = $("#topsearch").val();
-    console.log("click test");
     $(".cmdresult").hide();
     $(".cmdresult:contains('" + searchEntered + "')").show();
 
