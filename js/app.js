@@ -1,4 +1,5 @@
-//TODO: Add enterKey function to fire .cmdresult show function on pressing enter key in search field
+
+//TODO: Add more comments, and keep focus on good comments
 //TODO: Remove submit button when enterKey function implemented
 //TODO: Add about and contact page in dropdown-menu titled Menu
 //TODO: Create logo
@@ -40,19 +41,21 @@ var commandEntries = [
 ];
 
 $(document).ready(function() {
+
+
+  $("input").on("keydown",function search(e) {
+    if(e.keyCode == 13) {
+      event.preventDefault();
+      var searchEntered = $("#topsearch").val();
+      $(".cmdresult").hide();
+      $(".cmdresult:contains('" + searchEntered + "')").show();
+    }
+  });
+
   commandEntries.forEach( function(item) {
     $(".toprow").append('<div class="col-md-3 cmdresult"><div class="thumbnail"><div class="caption"><h3 class="">' + item.title + '</h4><p><strong>' + item.syntax + '</strong></p><p><strong>Example:</strong> ' + item.example + '</p><p>' + item.description + '</p> <a href="#" class="btn btn-default btn-xs pull-right" role="button"><i class="glyphicon glyphicon-edit"></i></a>  <a href="#" class="btn btn-default btn-xs" role="button">More Info</a></div></div></div>');
   });
-  //$(".toprow").append('<div class="col-md-3 cmdresult"><div class="thumbnail"><div class="caption"><h3 class="">' + commandEntries[0].title + '</h4><p><strong>' + commandEntries[0].example + '</strong></p><p><strong>Example:</strong> ' + commandEntries[0].example + '</p><p>' + commandEntries[0].description + '</p> <a href="#" class="btn btn-default btn-xs pull-right" role="button"><i class="glyphicon glyphicon-edit"></i></a>  <a href="#" class="btn btn-default btn-xs" role="button">More Info</a></div></div></div>');
-  $("#topbutton").click(function() {
-    event.preventDefault();
-    var searchEntered = $("#topsearch").val();
-    $(".cmdresult").hide();
-    $(".cmdresult:contains('" + searchEntered + "')").show();
 
-    //prevent form from submitting (and changing page)
-    //return false;
-  });
   $(function() {
     // apply your matchHeight on DOM ready (they will be automatically re-applied on load or resize)
     // get test settings
